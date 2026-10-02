@@ -1,5 +1,3 @@
----
-
 ## Updated `docs/USAGE.md`
 
 ```md
