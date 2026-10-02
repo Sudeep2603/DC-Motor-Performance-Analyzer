@@ -1,93 +1,204 @@
-# Usage Guide
+# OOP Concepts Used in the Project
 
-## 1. Start the Application
+This project applies Object-Oriented Programming concepts to organize the DC Motor Performance Analyzer into reusable and maintainable components.
 
-Run:
+The application contains different classes for common motor-test operations, Swinburne's Test, load testing, and the graphical user interface.
 
-```bash
-python src/motor_performance_analyzer.py
-```
+---
 
-The **Motor Performance Analyzer** main window opens.
+## 1. Classes and Objects
 
-## 2. Select an Experiment
+A class is a blueprint used to define related data and functions, while an object is an instance of a class.
 
-The program provides:
+The major classes used in this project are:
 
-- Swinburne's Test
-- Load Test on DC Series Motor
-- Load Test on DC Shunt Motor
+- `BaseMotorTest`
+- `SwinburnesTest`
+- `LoadTest`
+- `SeriesMotorLoadTest`
+- `ShuntMotorLoadTest`
+- `MotorTestApp`
 
-## 3. Swinburne's Test
+Each class has a specific responsibility.
 
-Choose either:
+### `BaseMotorTest`
 
-- Motor Operation
-- Generator Operation
+This is the base class containing common functionality required by different motor tests.
 
-Enter:
+It provides methods for:
 
-- Supply Voltage
-- Field Current
-- No-Load Line Current
-- Armature Resistance
-- Rated Line Current
-- Rated Speed
+- Plotting graphs
+- Saving calculated results
+- Loading saved results
+- Generating machine-life insights
 
-The program calculates the required performance values and displays a graph.
+### `SwinburnesTest`
 
-## 4. Load Test
+This class handles Swinburne's Test.
 
-Select either DC Series or DC Shunt motor.
+It allows the user to select:
 
-Enter the number of readings, then provide:
+- Motor operation
+- Generator operation
 
-- Brake Drum Radius
-- Rated Current
-- Voltage
-- Current
-- Spring-balance reading S1
-- Spring-balance reading S2
+It then performs the corresponding calculations and plots the results.
+
+### `LoadTest`
+
+This class contains the common logic required for performing load tests.
+
+It handles:
+
+- Input collection
+- Torque calculation
+- Input power calculation
+- Output power calculation
+- Efficiency calculation
+- Graph plotting
+
+### `SeriesMotorLoadTest`
+
+This class represents the load test for a DC Series Motor.
+
+### `ShuntMotorLoadTest`
+
+This class represents the load test for a DC Shunt Motor.
+
+### `MotorTestApp`
+
+This class controls the main graphical user interface of the application.
+
+It creates the main window and allows the user to select the required experiment.
+
+---
+
+## 2. Inheritance
+
+Inheritance allows one class to reuse the properties and methods of another class.
+
+The project uses the following inheritance structure:
+
+```text
+BaseMotorTest
+├── SwinburnesTest
+└── LoadTest
+    ├── SeriesMotorLoadTest
+    └── ShuntMotorLoadTest
+
+For example:
+class SwinburnesTest(BaseMotorTest):    ...
+
+
+and:
+class LoadTest(BaseMotorTest):    ...
+
+
+Both classes inherit common functions such as graph plotting and file handling from BaseMotorTest.
+Similarly:
+class SeriesMotorLoadTest(LoadTest):    ...
+
+
+and:
+class ShuntMotorLoadTest(LoadTest):    ...
+
+
+inherit the common load-test functionality from LoadTest.
+This reduces repeated code.
+3. Encapsulation
+Encapsulation means grouping related data and operations inside a class.
+For example, the LoadTest class contains:
+- Input fields
+- Motor type
+- Input-reading logic
+- Calculation methods
+- Graph generation
+This keeps the variables and functions related to a load test together.
+Similarly, SwinburnesTest contains the functions specifically required for Swinburne's Test.
+This improves code organization and maintainability.
+4. Abstraction
+Abstraction hides unnecessary implementation details from the user.
+The user does not need to know the mathematical implementation inside the program.
+The user simply:
+1. Selects an experiment
+2. Enters the required values
+3. Clicks Calculate & Plot
+4. Views the results
+Internally, the program performs calculations for:
+- Input power
+- Output power
+- Copper loss
+- Efficiency
 - Speed
-
-The program calculates torque, input/output power, efficiency, and related performance characteristics.
-
-## 5. Save Results
-
-After calculation, the application asks whether the result should be saved.
-
-Choose **Yes** and select a location. The result is stored as a CSV file.
-
-## 6. Load Previous Results
-
-Use:
-
-**File → Load Saved Data**
-
-Select a previously generated CSV file. The program reads the data and plots it.
-
-## 7. Adding GitHub Screenshots
-
-Take screenshots of:
-
-- Main application window
-- Input window
-- Performance graph
+- Torque
 - Machine-life inference
-- Saved CSV output
+The calculations are therefore hidden behind the graphical interface and class methods.
+5. Polymorphism and Specialization
+The DC Series Motor and DC Shunt Motor load-test classes both use the common functionality of LoadTest.
+However, each class represents a different motor type.
+For example:
+class SeriesMotorLoadTest(LoadTest):    def __init__(self, root):        super().__init__(root, "DC Series")
 
-Store them inside:
 
-```text
-images/output/
-```
+and:
+class ShuntMotorLoadTest(LoadTest):    def __init__(self, root):        super().__init__(root, "DC Shunt")
 
-Recommended filenames:
 
-```text
-main_window.png
-input_window.png
-performance_graph.png
-machine_life_inference.png
-saved_csv.png
-```
+Both classes use the same load-test implementation while providing different motor-type information.
+This demonstrates specialization through inheritance.
+6. Constructors
+Constructors are used to initialize objects when they are created.
+For example:
+def __init__(self, root, motor_type):    super().__init__(root)    self.motor_type = motor_type    self.entries = []
+
+
+Here:
+super().__init__(root)
+
+
+calls the constructor of the parent class.
+The constructor also initializes variables required by the object.
+7. Method Reusability
+The project uses reusable methods to avoid repeating code.
+Important reusable methods include:
+plot_graph()save_results_to_file()load_results_from_file()get_motor_life_inference()
+
+
+These functions are defined in BaseMotorTest and can be used by the child classes.
+For example, both Swinburne's Test and load tests use the same graph plotting method.
+8. Object Creation
+Objects are created when the user selects an experiment.
+For example:
+test = SwinburnesTest(self.root)
+
+
+creates an object for Swinburne's Test.
+Similarly:
+test = SeriesMotorLoadTest(self.root)
+
+
+creates an object for the DC Series Motor load test.
+and:
+test = ShuntMotorLoadTest(self.root)
+
+
+creates an object for the DC Shunt Motor load test.
+9. Benefits of Using OOP in This Project
+Using Object-Oriented Programming provides several advantages:
+- Reduces code duplication
+- Improves code organization
+- Makes the application easier to modify
+- Allows new motor tests to be added more easily
+- Improves maintainability
+- Encourages reusable functions and classes
+- Separates GUI logic from motor-test functionality
+Summary
+The major OOP concepts demonstrated in this project are:
+- Classes
+- Objects
+- Inheritance
+- Encapsulation
+- Abstraction
+- Specialization
+- Constructors
+- Method reusability
+The use of these concepts allows the DC Motor Performance Analyzer to remain organized, reusable, and easier to extend.
