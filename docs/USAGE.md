@@ -84,46 +84,79 @@ BaseMotorTest
 └── LoadTest
     ├── SeriesMotorLoadTest
     └── ShuntMotorLoadTest
+```
 
 For example:
-class SwinburnesTest(BaseMotorTest):    ...
 
+```python
+class SwinburnesTest(BaseMotorTest):
+    ...
+```
 
 and:
-class LoadTest(BaseMotorTest):    ...
 
+```python
+class LoadTest(BaseMotorTest):
+    ...
+```
 
-Both classes inherit common functions such as graph plotting and file handling from BaseMotorTest.
+Both classes inherit common functions such as graph plotting and file handling from `BaseMotorTest`.
+
 Similarly:
-class SeriesMotorLoadTest(LoadTest):    ...
 
+```python
+class SeriesMotorLoadTest(LoadTest):
+    ...
+```
 
 and:
-class ShuntMotorLoadTest(LoadTest):    ...
 
+```python
+class ShuntMotorLoadTest(LoadTest):
+    ...
+```
 
-inherit the common load-test functionality from LoadTest.
+inherit the common load-test functionality from `LoadTest`.
+
 This reduces repeated code.
-3. Encapsulation
+
+---
+
+## 3. Encapsulation
+
 Encapsulation means grouping related data and operations inside a class.
-For example, the LoadTest class contains:
+
+For example, the `LoadTest` class contains:
+
 - Input fields
 - Motor type
 - Input-reading logic
 - Calculation methods
 - Graph generation
+
 This keeps the variables and functions related to a load test together.
-Similarly, SwinburnesTest contains the functions specifically required for Swinburne's Test.
+
+Similarly, `SwinburnesTest` contains the functions specifically required for Swinburne's Test.
+
 This improves code organization and maintainability.
-4. Abstraction
+
+---
+
+## 4. Abstraction
+
 Abstraction hides unnecessary implementation details from the user.
+
 The user does not need to know the mathematical implementation inside the program.
+
 The user simply:
+
 1. Selects an experiment
 2. Enters the required values
-3. Clicks Calculate & Plot
+3. Clicks **Calculate & Plot**
 4. Views the results
+
 Internally, the program performs calculations for:
+
 - Input power
 - Output power
 - Copper loss
@@ -131,59 +164,117 @@ Internally, the program performs calculations for:
 - Speed
 - Torque
 - Machine-life inference
-The calculations are therefore hidden behind the graphical interface and class methods.
-5. Polymorphism and Specialization
-The DC Series Motor and DC Shunt Motor load-test classes both use the common functionality of LoadTest.
-However, each class represents a different motor type.
-For example:
-class SeriesMotorLoadTest(LoadTest):    def __init__(self, root):        super().__init__(root, "DC Series")
 
+The calculations are therefore hidden behind the graphical interface and class methods.
+
+---
+
+## 5. Polymorphism and Specialization
+
+The DC Series Motor and DC Shunt Motor load-test classes both use the common functionality of `LoadTest`.
+
+However, each class represents a different motor type.
+
+For example:
+
+```python
+class SeriesMotorLoadTest(LoadTest):
+    def __init__(self, root):
+        super().__init__(root, "DC Series")
+```
 
 and:
-class ShuntMotorLoadTest(LoadTest):    def __init__(self, root):        super().__init__(root, "DC Shunt")
 
+```python
+class ShuntMotorLoadTest(LoadTest):
+    def __init__(self, root):
+        super().__init__(root, "DC Shunt")
+```
 
 Both classes use the same load-test implementation while providing different motor-type information.
-This demonstrates specialization through inheritance.
-6. Constructors
-Constructors are used to initialize objects when they are created.
-For example:
-def __init__(self, root, motor_type):    super().__init__(root)    self.motor_type = motor_type    self.entries = []
 
+This demonstrates specialization through inheritance.
+
+---
+
+## 6. Constructors
+
+Constructors are used to initialize objects when they are created.
+
+For example:
+
+```python
+def __init__(self, root, motor_type):
+    super().__init__(root)
+    self.motor_type = motor_type
+    self.entries = []
+```
 
 Here:
-super().__init__(root)
 
+```python
+super().__init__(root)
+```
 
 calls the constructor of the parent class.
+
 The constructor also initializes variables required by the object.
-7. Method Reusability
+
+---
+
+## 7. Method Reusability
+
 The project uses reusable methods to avoid repeating code.
+
 Important reusable methods include:
-plot_graph()save_results_to_file()load_results_from_file()get_motor_life_inference()
 
+```python
+plot_graph()
+save_results_to_file()
+load_results_from_file()
+get_motor_life_inference()
+```
 
-These functions are defined in BaseMotorTest and can be used by the child classes.
+These functions are defined in `BaseMotorTest` and can be used by the child classes.
+
 For example, both Swinburne's Test and load tests use the same graph plotting method.
-8. Object Creation
-Objects are created when the user selects an experiment.
-For example:
-test = SwinburnesTest(self.root)
 
+---
+
+## 8. Object Creation
+
+Objects are created when the user selects an experiment.
+
+For example:
+
+```python
+test = SwinburnesTest(self.root)
+```
 
 creates an object for Swinburne's Test.
-Similarly:
-test = SeriesMotorLoadTest(self.root)
 
+Similarly:
+
+```python
+test = SeriesMotorLoadTest(self.root)
+```
 
 creates an object for the DC Series Motor load test.
-and:
-test = ShuntMotorLoadTest(self.root)
 
+and:
+
+```python
+test = ShuntMotorLoadTest(self.root)
+```
 
 creates an object for the DC Shunt Motor load test.
-9. Benefits of Using OOP in This Project
+
+---
+
+## 9. Benefits of Using OOP in This Project
+
 Using Object-Oriented Programming provides several advantages:
+
 - Reduces code duplication
 - Improves code organization
 - Makes the application easier to modify
@@ -191,8 +282,13 @@ Using Object-Oriented Programming provides several advantages:
 - Improves maintainability
 - Encourages reusable functions and classes
 - Separates GUI logic from motor-test functionality
-Summary
+
+---
+
+## Summary
+
 The major OOP concepts demonstrated in this project are:
+
 - Classes
 - Objects
 - Inheritance
@@ -201,4 +297,5 @@ The major OOP concepts demonstrated in this project are:
 - Specialization
 - Constructors
 - Method reusability
+
 The use of these concepts allows the DC Motor Performance Analyzer to remain organized, reusable, and easier to extend.
