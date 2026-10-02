@@ -477,7 +477,7 @@ See the `LICENSE` file for more information.
 ## Author
 
 **Sudeep B**  
-B.Tech Electronics and Computer Engineering  
+B.Tech Electrical and Computer Engineering  
 Amrita Vishwa Vidyapeetham, Coimbatore
 
 **Object-Oriented Programming Project**
