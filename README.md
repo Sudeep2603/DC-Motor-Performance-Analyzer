@@ -122,16 +122,27 @@ For more details, see [docs/USAGE.md](docs/USAGE.md).
 
 ## Output Screenshots
 
-Add screenshots of your program to `images/output/`.
+## Output Screenshots
 
-Example:
+### Main Application Window
 
-```markdown
 ![Main Window](images/output/main_window.png)
-![Performance Graph](images/output/performance_graph.png)
-```
 
-After adding screenshots, you can place these lines in this README so the images are shown directly on GitHub.
+### Swinburne's Test - Motor Performance Characteristics
+
+![Swinburne Motor Graph](images/output/swinburne_motor_graph.png)
+
+### Machine Life Inference
+
+![Machine Life Inference](images/output/machine_life_inference.png)
+
+### DC Shunt Motor Performance Characteristics
+
+![Load Test Graph](images/output/load_test_graph.png)
+
+### DC Shunt Motor Torque-Speed Characteristic
+
+![Torque Speed Characteristic](images/output/torque_speed_characteristic.png)
 
 ## Technologies Used
 
