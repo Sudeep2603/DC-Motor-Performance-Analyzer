@@ -1,6 +1,3 @@
-Sure — here is a complete polished `README.md` you can paste directly into GitHub.
-
-```md
 # DC Motor Performance Analyzer
 
 A Python-based GUI application for analyzing the performance of DC machines using **Swinburne's Test** and **load tests on DC Series and DC Shunt motors**.
@@ -405,11 +402,3 @@ Amrita Vishwa Vidyapeetham, Coimbatore
 
 Object-Oriented Programming Project
 ```
-
-One thing: make sure `Sudeep2603` is actually your GitHub username. If your username is different, replace this line:
-
-```bash
-git clone https://github.com/Sudeep2603/dc-motor-performance-analyzer.git
-```
-
-with your real GitHub repository URL.
